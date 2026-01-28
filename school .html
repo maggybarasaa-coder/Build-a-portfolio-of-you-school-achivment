@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My School Portfolio | Margaret</title>
+
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#121c32;
+      --text:#eaf0ff;
+      --muted:#b9c5e6;
+      --accent:#7c5cff;
+      --accent2:#2ee59d;
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 700px at 20% 10%, rgba(124,92,255,.35), transparent 55%),
+                  radial-gradient(900px 600px at 80% 20%, rgba(46,229,157,.25), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+    }
+
+    /* Header */
+    header{
+      position: sticky;
+      top:0;
+      z-index: 999;
+      background: rgba(11,18,32,.82);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    nav{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .logo{ font-weight: 900; letter-spacing: .3px; }
+
+    .menu-btn{
+      display:none;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 12px;
+      cursor:pointer;
+      font-weight: 800;
+    }
+
+    ul.nav-links{
+      list-style:none;
+      display:flex;
+      gap: 10px;
+      margin:0;
+      padding:0;
+      align-items:center;
+    }
+    .nav-links a{
+      color: var(--muted);
+      text-decoration:none;
+      padding: 10px 10px;
+      border-radius: 12px;
+      font-weight: 700;
+      display:inline-block;
+    }
+    .nav-links a:hover{
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+    }
+
+    /* Layout */
+    .hero{
+      max-width:1100px;
+      margin: 0 auto;
+      padding: 40px 16px 10px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    section{
+      max-width:1100px;
+      margin: 0 auto;
+      padding: 50px 16px;
+    }
+    h1{
+      font-size: 44px;
+      margin: 10px 0 8px;
+      line-height: 1.1;
+    }
+    .accent{ color: var(--accent2); }
+    .tag{
+      display:inline-block;
+      background: rgba(124,92,255,.18);
+      border: 1px solid rgba(124,92,255,.35);
+      color: var(--text);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 12px;
+    }
+    .subtitle{
+      color: var(--muted);
+      margin: 0 0 18px;
+      font-size: 16px;
+      line-height: 1.5;
+      max-width: 65ch;
+    }
+    .section-title{ font-size: 30px; margin: 0 0 8px; }
+    .section-desc{ margin: 0 0 18px; color: var(--muted); max-width: 70ch; }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .hero-card{
+      background: linear-gradient(180deg, rgba(46,229,157,.10), rgba(124,92,255,.08));
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .avatar{
+      width: 80px; height: 80px;
+      display:grid; place-items:center;
+      font-size: 38px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      margin-bottom: 10px;
+    }
+
+    .profile{ padding-left: 18px; color: var(--muted); }
+    .small-link{
+      display:inline-block;
+      margin-top: 10px;
+      color: var(--text);
+      text-decoration:none;
+      font-weight: 800;
+    }
+    .small-link:hover{ text-decoration: underline; }
+
+    /* Buttons */
+    .btn{
+      display:inline-block;
+      border:none;
+      cursor:pointer;
+      text-decoration:none;
+      font-weight: 900;
+      border-radius: 14px;
+      padding: 12px 14px;
+      transition: transform .08s ease, filter .2s ease;
+      user-select:none;
+    }
+    .btn:active{ transform: scale(.98); }
+    .primary{
+      background: linear-gradient(135deg, var(--accent), #ff7bd5);
+      color: white;
+    }
+    .ghost{
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+      color: var(--text);
+    }
+    .tiny{
+      padding: 10px 12px;
+      border-radius: 12px;
+      margin-top: 10px;
+      background: rgba(255,255,255,.08);
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,.12);
+    }
+    .btn:hover{ filter: brightness(1.08); }
+
+    .hero-buttons{ display:flex; gap: 10px; flex-wrap:wrap; margin-bottom: 18px; }
+
+    /* Stats */
+    .stats{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .stat{
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 16px;
+      padding: 12px;
+      text-align:center;
+    }
+    .stat h3{ margin:0; font-size: 26px; color: var(--accent2); }
+    .stat p{ margin:4px 0 0; color: var(--muted); font-weight: 700; }
+
+    /* Grids */
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    /* Chips */
+    .chips{ display:flex; flex-wrap:wrap; gap: 10px; margin-bottom: 14px; }
+    .chip{
+      background: rgba(124,92,255,.18);
+      border: 1px solid rgba(124,92,255,.30);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    /* Skill bars */
+    .bars{ display:grid; gap: 10px; }
+    .bar span{ font-weight: 900; font-size: 14px; }
+    .track{
+      margin-top: 6px;
+      height: 10px;
+      background: rgba(255,255,255,.08);
+      border-radius: 999px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .fill{
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent2), var(--accent));
+      width: 0%;
+    }
+
+    .list{ padding-left: 18px; color: var(--muted); }
+    .meta{ color: var(--muted); font-size: 13px; margin-top: 10px; }
+
+    /* Badges */
+    .project-top{ display:flex; gap: 8px; flex-wrap:wrap; margin-bottom: 8px; }
+    .badge{
+      font-size: 12px;
+      font-weight: 900;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(46,229,157,.18);
+      border: 1px solid rgba(46,229,157,.28);
+    }
+    .badge.soft{
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+    }
+
+    /* Highlight */
+    .highlight{
+      margin-top: 16px;
+      background: linear-gradient(180deg, rgba(124,92,255,.15), rgba(46,229,157,.10));
+    }
+    .plan{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      color: var(--muted);
+    }
+
+    /* Form */
+    label{ display:block; margin-bottom: 12px; font-weight: 900; }
+    input, textarea{
+      width: 100%;
+      margin-top: 6px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(10,16,30,.6);
+      color: var(--text);
+      outline:none;
+    }
+    input:focus, textarea:focus{ border-color: rgba(46,229,157,.6); }
+
+    .success{
+      margin-top: 10px;
+      color: var(--accent2);
+      font-weight: 900;
+      min-height: 18px;
+    }
+
+    .socials{ display:flex; gap: 10px; flex-wrap:wrap; margin-top: 10px; }
+    .social{
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      color: var(--text);
+      text-decoration:none;
+      padding: 10px 12px;
+      border-radius: 14px;
+      font-weight: 900;
+    }
+    footer{
+      padding: 18px 16px 30px;
+      text-align:center;
+      color: var(--muted);
+      border-top: 1px solid rgba(255,255,255,.07);
+    }
+
+    /* Modal */
+    .modal{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.65);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 16px;
+    }
+    .modal-box{
+      width: min(520px, 100%);
+      background: rgba(15,26,48,.98);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+    .modal-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    .close{
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.12);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 8px 10px;
+      cursor:pointer;
+      font-weight: 900;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .hero{ grid-template-columns: 1fr; }
+      .cards{ grid-template-columns: 1fr; }
+      .grid-2{ grid-template-columns: 1fr; }
+    }
+    @media (max-width: 760px){
+      .menu-btn{ display:block; }
+      ul.nav-links{
+        display:none;
+        width: 100%;
+        flex-direction:column;
+        background: rgba(255,255,255,.05);
+        border: 1px solid rgba(255,255,255,.10);
+        padding: 12px;
+        border-radius: 16px;
+      }
+      .stats{ grid-template-columns: 1fr; }
+      h1{ font-size: 36px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header id="top">
+    <nav>
+      <div class="logo">🌟 Margaret</div>
+
+      <button class="menu-btn" aria-label="Open menu" onclick="toggleMenu()">☰</button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" onclick="closeMenu()">Home</a></li>
+        <li><a href="#about" onclick="closeMenu()">About</a></li>
+        <li><a href="#achievements" onclick="closeMenu()">Achievements</a></li>
+        <li><a href="#projects" onclick="closeMenu()">Projects</a></li>
+        <li><a href="#activities" onclick="closeMenu()">Activities</a></li>
+        <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HOME -->
+  <div class="hero" id="home">
+    <div>
+      <span class="tag">Portfolio Website</span>
+      <h1>Hello! I’m <span class="accent">Margaret</span> 👋</h1>
+      <p class="subtitle">
+        Welcome to my school portfolio. Here you’ll find my achievements, projects, skills, and activities.
+      </p>
+
+      <div class="hero-buttons">
+        <a class="btn primary" href="#projects">See My Projects</a>
+        <a class="btn ghost" href="#contact">Contact Me</a>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <h3 id="statProjects">0</h3>
+          <p>Projects</p>
+        </div>
+        <div class="stat">
+          <h3 id="statAwards">0</h3>
+          <p>Awards</p>
+        </div>
+        <div class="stat">
+          <h3 id="statClubs">0</h3>
+          <p>Clubs</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="avatar" aria-hidden="true">👩‍🎓</div>
+      <h2>Student Profile</h2>
+      <ul class="profile">
+        <li><b>School:</b> Your School Name</li>
+        <li><b>Class:</b> Grade / Form</li>
+        <li><b>Favorite Subjects:</b> ICT, Science</li>
+        <li><b>Dream Career:</b> Software Developer</li>
+      </ul>
+      <a class="small-link" href="#about">Learn more →</a>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <h2 class="section-title">About Me</h2>
+    <p class="section-desc">
+      I am a curious student who enjoys learning, building projects, and working with others.
+      I love technology because it helps us solve real-life problems.
+    </p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>My Skills</h3>
+        <div class="chips">
+          <span class="chip">HTML</span>
+          <span class="chip">CSS</span>
+          <span class="chip">JavaScript</span>
+          <span class="chip">Creativity</span>
+          <span class="chip">Teamwork</span>
+          <span class="chip">Communication</span>
+        </div>
+
+        <div class="bars">
+          <div class="bar">
+            <span>HTML</span>
+            <div class="track"><div class="fill" data-target="85"></div></div>
+          </div>
+          <div class="bar">
+            <span>CSS</span>
+            <div class="track"><div class="fill" data-target="75"></div></div>
+          </div>
+          <div class="bar">
+            <span>JavaScript</span>
+            <div class="track"><div class="fill" data-target="65"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>My Goals</h3>
+        <ul class="list">
+          <li>Improve my coding skills by practicing weekly</li>
+          <li>Take part in school competitions and clubs</li>
+          <li>Build projects that help students learn better</li>
+          <li>Become confident in public speaking</li>
+        </ul>
+        <p style="margin-top:14px; font-weight:900; color:var(--text);">
+          “Small steps every day lead to big results.” 💪
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section id="achievements">
+    <h2 class="section-title">Achievements</h2>
+    <p class="section-desc">Edit these to match your real achievements.</p>
+
+    <div class="cards">
+      <article class="card">
+        <h3>🏆 Academic Excellence</h3>
+        <p>Top performer in ICT / Science in my class.</p>
+        <p class="meta">Year: 2025</p>
+      </article>
+
+      <article class="card">
+        <h3>🥇 Competition / Contest</h3>
+        <p>Participated in a school quiz / math contest.</p>
+        <p class="meta">Year: 2025</p>
+      </article>
+
+      <article class="card">
+        <h3>⭐ Leadership</h3>
+        <p>Class prefect / group leader in a club project.</p>
+        <p class="meta">Year: 2024</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <h2 class="section-title">My Projects</h2>
+    <p class="section-desc">Projects I built while learning coding.</p>
+
+    <div class="cards">
+      <article class="card">
+        <div class="project-top">
+          <span class="badge">HTML + CSS</span>
+          <span class="badge soft">Beginner</span>
+        </div>
+        <h3>Portfolio Website</h3>
+        <p>A simple website to show my achievements and skills.</p>
+        <button class="btn tiny" onclick="openModal('Portfolio Website','This website has sections: About, Achievements, Projects, Activities, and Contact. It is responsive and has animations.')">
+          Read More
+        </button>
+      </article>
+
+      <article class="card">
+        <div class="project-top">
+          <span class="badge">JavaScript</span>
+          <span class="badge soft">Fun</span>
+        </div>
+        <h3>Quiz Game</h3>
+        <p>A mini quiz game that shows score after answering questions.</p>
+        <button class="btn tiny" onclick="openModal('Quiz Game','My quiz game asks questions and counts the score. Next, I will add a timer and more questions.')">
+          Read More
+        </button>
+      </article>
+
+      <article class="card">
+        <div class="project-top">
+          <span class="badge">Creative</span>
+          <span class="badge soft">Design</span>
+        </div>
+        <h3>Poster / Flyer Design</h3>
+        <p>A colorful school poster design for an event or club.</p>
+        <button class="btn tiny" onclick="openModal('Poster / Flyer Design','I designed a poster using color, spacing, and shapes. This improves my design skills.')">
+          Read More
+        </button>
+      </article>
+    </div>
+  </section>
+
+  <!-- ACTIVITIES -->
+  <section id="activities">
+    <h2 class="section-title">Extracurricular Activities</h2>
+    <p class="section-desc">Clubs and activities I enjoy at school.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Clubs</h3>
+        <ul class="list">
+          <li>💻 Coding / ICT Club</li>
+          <li>📚 Debate / Writers Club</li>
+          <li>🌱 Environment Club</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Sports & Hobbies</h3>
+        <ul class="list">
+          <li>⚽ Football / Basketball</li>
+          <li>🎨 Drawing & Design</li>
+          <li>🎵 Music / Dance</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card highlight">
+      <h3>Weekly Study Plan ✅</h3>
+      <div class="plan">
+        <div><b>Mon:</b> Homework + revision</div>
+        <div><b>Tue:</b> Coding practice</div>
+        <div><b>Wed:</b> Club activity</div>
+        <div><b>Thu:</b> Reading</div>
+        <div><b>Fri:</b> Improve projects</div>
+        <div><b>Sat:</b> Family + rest</div>
+        <div><b>Sun:</b> Plan next week</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2 class="section-title">Contact</h2>
+    <p class="section-desc">
+      This form is a demo (it will show a success message).
+    </p>
+
+    <div class="grid-2">
+      <form class="card" onsubmit="sendMessage(event)">
+        <label>
+          Your Name
+          <input type="text" id="name" placeholder="Type your name" required />
+        </label>
+
+        <label>
+          Your Email
+          <input type="email" id="email" placeholder="name@example.com" required />
+        </label>
+
+        <label>
+          Message
+          <textarea id="message" rowsrows="4" placeholder="Write your message..." required></textarea>
+        </label>
+
+        <button class="btn primary" type="submit">Send Message</button>
+        <p class="success" id="successMsg"></p>
+      </form>
+
+      <div class="card">
+        <h3>Quick Info</h3>
+        <p><b>School:</b> Your School Name</p>
+        <p><b>Location:</b> Kenya</p>
+        <p><b>Email:</b> your-email@example.com</p>
+
+        <div class="socials">
+          <a class="social" href="#top" title="Back to top">⬆️ Top</a>
+          <a class="social" href="#projects" title="Projects">💼 Projects</a>
+          <a class="social" href="#achievements" title="Achievements">🏆 Achievements</a>
+        </div>
+
+        <p style="margin-top:12px; color:var(--muted); font-size:13px;">
+          Tip: Replace placeholders with your real details before submitting.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© <span id="year"></span> Margaret • Built with HTML, CSS & JavaScript</p>
+  </footer>
+
+  <!-- MODAL -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3 id="modalTitle">Title</h3>
+        <button class="close" onclick="closeModal()" aria-label="Close">✕</button>
+      </div>
+      <p id="modalText">Text</p>
+      <button class="btn ghost" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // Mobile menu
+    function toggleMenu() {
+      const links = document.getElementById("navLinks");
+      links.style.display = (links.style.display === "flex") ? "none" : "flex";
+    }
+    function closeMenu() {
+      const links = document.getElementById("navLinks");
+      if (window.innerWidth <= 760) links.style.display = "none";
+    }
+
+    // Footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Contact form (demo)
+    function sendMessage(event) {
+      event.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const success = document.getElementById("successMsg");
+      success.textContent = `✅ Thanks, ${name}! Your message has been saved (demo).`;
+      document.getElementById("name").value = "";
+      document.getElementById("email").value = "";
+      document.getElementById("message").value = "";
+    }
+
+    // Modal
+    function openModal(title, text) {
+      document.getElementById("modalTitle").textContent = title;
+      document.getElementById("modalText").textContent = text;
+      document.getElementById("modal").style.display = "flex";
+      document.getElementById("modal").setAttribute("aria-hidden", "false");
+    }
+    function closeModal() {
+      document.getElementById("modal").style.display = "none";
+      document.getElementById("modal").setAttribute("aria-hidden", "true");
+    }
+    document.getElementById("modal").addEventListener("click", (e) => {
+      if (e.target.id === "modal") closeModal();
+    });
+
+    // Animated counters
+    const targets = { statProjects: 3, statAwards: 3, statClubs: 3 };
+
+    function animateCounter(id, target) {
+      const el = document.getElementById(id);
+      let current = 0;
+      const step = Math.max(1, Math.floor(target / 30));
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) { current = target; clearInterval(timer); }
+        el.textContent = current;
+      }, 25);
+    }
+
+    // Skill bar animation
+    function animateBars(){
+      document.querySelectorAll(".fill").forEach(fill=>{
+        const target = Number(fill.dataset.target || 0);
+        fill.style.width = target + "%";
+      });
+    }
+
+    window.addEventListener("load", () => {
+      animateCounter("statProjects", targets.statProjects);
+      animateCounter("statAwards", targets.statAwards);
+      animateCounter("statClubs", targets.statClubs);
+      setTimeout(animateBars, 250);
+      if (window.innerWidth > 760) document.getElementById("navLinks").style.display = "flex";
+      else document.getElementById("navLinks").style.display = "none";
+    });
+
+    // Keep nav correct when resizing
+    window.addEventListener("resize", () => {
+      const links = document.getElementById("navLinks");
+      if (window.innerWidth > 760) links.style.display = "flex";
+      else links.style.display = "none";
+    });
+  </script>
+</body>
+</html>
